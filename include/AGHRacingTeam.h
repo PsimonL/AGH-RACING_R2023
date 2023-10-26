@@ -19,6 +19,12 @@ class AGHRacingTeam
 public:
     AGHRacingTeam(){}
 
+    // Copy Constructor - initializer list
+    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam) : members(otherAGHRacingTeam.members) {}
+//    AGHRacingTeam(const AGHRacingTeam &AGHRacingTeam){
+//        members = AGHRacingTeam.members;
+//    }
+
     AGHRacingTeam(const std::vector<Member>& newMembers) {
         for (const auto& member : newMembers) {
             if (isValidMember(member)) {
