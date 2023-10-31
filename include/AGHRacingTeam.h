@@ -1,6 +1,6 @@
 #include <vector>
 #include <string>
-
+#include <memory>
 #include <stdexcept>
 #include <algorithm>
 
@@ -17,15 +17,34 @@ struct Member
 class AGHRacingTeam
 {
 public:
-    AGHRacingTeam(){}
+// ###################################################################################################################################################################################
+    // PROPER SHALLOW COPY
+    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam) : members(std::make_shared<std::vector<Member>>(otherAGHRacingTeam.members->begin(), otherAGHRacingTeam.members->end())) {}
 
     AGHRacingTeam(const std::vector<Member>& newMembers) {
         for (const auto& member : newMembers) {
             if (isValidMember(member)) {
-                members.push_back(member);
+                members->push_back(member);
             }
         }
     }
+// ###################################################################################################################################################################################
+
+    AGHRacingTeam(){}
+
+    // Shallow Copy Constructor - could lead to memory leaks and unexpected errors!!
+//    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam) : members(otherAGHRacingTeam.members) {}
+//    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam){
+//        members = otherAGHRacingTeam.members;
+//    }
+
+//    AGHRacingTeam(const std::vector<Member>& newMembers) {
+//        for (const auto& member : newMembers) {
+//            if (isValidMember(member)) {
+//                members.push_back(member);
+//            }
+//        }
+//    }
 
     bool isValidMember(const Member& member){
         bool shouldAdd = true;
@@ -51,7 +70,11 @@ public:
         return shouldAdd;
     }
 
-    std::vector<Member> getMembers() { return members; }
+//    std::vector<Member> getMembers() { return members; }\
+// ###################################################################################################################################################################################
+    // PROPER SHALLOW COPY
+    std::vector<Member> getMembers() { return *members; }
+// ###################################################################################################################################################################################
 
     /**
      * Add new member to the members array only when input is valid.
@@ -74,5 +97,9 @@ public:
     int getMaxNumberOfJoinedInTheSameYear();
 
 private:
-    std::vector<Member> members;
+//    std::vector<Member> members;
+// ###################################################################################################################################################################################
+    // PROPER SHALLOW COPY
+    std::shared_ptr<std::vector<Member>> members;
+// ###################################################################################################################################################################################
 };
