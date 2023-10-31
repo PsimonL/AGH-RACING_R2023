@@ -19,11 +19,6 @@ class AGHRacingTeam
 public:
 // ###################################################################################################################################################################################
     // PROPER SHALLOW COPY
-    // TODO: https://www.geeksforgeeks.org/shallow-copy-and-deep-copy-in-c/
-    // TODO: https://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
-    // TODO: https://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
-    // TODO: https://www.google.com/search?client=firefox-b-d&q=shallow+vs+deep+copy+C%2B%2B#fpstate=ive&vld=cid:74b8869d,vid:C_nLA3hfw8E,st:0
-    // TODO: https://www.youtube.com/watch?v=tbtFKuTcZKs
 //    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam) : members(std::make_shared<std::vector<Member>>(otherAGHRacingTeam.members->begin(), otherAGHRacingTeam.members->end())) {}
 //
 //    AGHRacingTeam(const std::vector<Member>& newMembers) {
@@ -110,3 +105,11 @@ private:
     std::shared_ptr<std::vector<Member>> members;
 // ###################################################################################################################################################################################
 };
+
+
+
+// TODO: https://www.geeksforgeeks.org/shallow-copy-and-deep-copy-in-c/
+// TODO: https://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
+// TODO: https://stackoverflow.com/questions/2657810/deep-copy-vs-shallow-copy
+// TODO: https://www.google.com/search?client=firefox-b-d&q=shallow+vs+deep+copy+C%2B%2B#fpstate=ive&vld=cid:74b8869d,vid:C_nLA3hfw8E,st:0
+// TODO: https://www.youtube.com/watch?v=tbtFKuTcZKs
