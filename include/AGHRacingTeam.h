@@ -19,18 +19,20 @@ class AGHRacingTeam
 public:
 // ###################################################################################################################################################################################
     // PROPER SHALLOW COPY
-    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam) : members(std::make_shared<std::vector<Member>>(otherAGHRacingTeam.members->begin(), otherAGHRacingTeam.members->end())) {}
-
-    AGHRacingTeam(const std::vector<Member>& newMembers) {
-        for (const auto& member : newMembers) {
-            if (isValidMember(member)) {
-                members->push_back(member);
-            }
-        }
-    }
+//    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam) : members(std::make_shared<std::vector<Member>>(otherAGHRacingTeam.members->begin(), otherAGHRacingTeam.members->end())) {}
+//
+//    AGHRacingTeam(const std::vector<Member>& newMembers) {
+//        for (const auto& member : newMembers) {
+//            if (isValidMember(member.name, member.height, member.yearOfJoining)) {
+//                members->push_back(member);
+//            }
+//        }
+//    }
+    AGHRacingTeam(): members(std::make_shared<std::vector<Member>>()) {}
+    AGHRacingTeam(const AGHRacingTeam &other) = default;
 // ###################################################################################################################################################################################
 
-    AGHRacingTeam(){}
+//    AGHRacingTeam(){}
 
     // Shallow Copy Constructor - could lead to memory leaks and unexpected errors!!
 //    AGHRacingTeam(const AGHRacingTeam &otherAGHRacingTeam) : members(otherAGHRacingTeam.members) {}
@@ -46,24 +48,24 @@ public:
 //        }
 //    }
 
-    bool isValidMember(const Member& member){
+    bool isValidMember(std::string name, int height, int yearOfJoining){
         bool shouldAdd = true;
-        if (!(typeid(member.height) == typeid(int) && typeid(member.yearOfJoining) == typeid(int) && typeid(member.name) == typeid(std::string))) {  // && !name.empty()
+        if (!(typeid(height) == typeid(int) && typeid(yearOfJoining) == typeid(int) && typeid(name) == typeid(std::string))) {  // && !name.empty()
             throw std::invalid_argument("Invalid input data. Check data types and non-empty string.");
         }
-        if(!(100 <= member.height && member.height <= 250)) {
+        if(!(100 <= height && height <= 250)) {
             shouldAdd = false;
         }
-        if(!(2000 <= member.yearOfJoining && member.yearOfJoining <= 2023)){
+        if(!(2000 <= yearOfJoining && yearOfJoining <= 2023)){
             shouldAdd = false;
         }
-        if(member.name.length() >= 20){
+        if(name.length() >= 20){
             shouldAdd = false;
         }
-        if(!std::isupper(member.name[0])){
+        if(!std::isupper(name[0])){
             shouldAdd = false;
         }
-        if (!std::all_of(member.name.begin(), member.name.end(), ::isalnum)) {
+        if (!std::all_of(name.begin(), name.end(), ::isalnum)) {
             shouldAdd = false;
         }
 
