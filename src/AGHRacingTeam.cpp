@@ -10,38 +10,21 @@
 
 void AGHRacingTeam::addMember(std::string name, int height, int yearOfJoining)
 {
-    bool shouldAdd = true;
-    if (!(typeid(height) == typeid(int) && typeid(yearOfJoining) == typeid(int) && typeid(name) == typeid(std::string))) {  // && !name.empty()
-        throw std::invalid_argument("Invalid input data. Check data types and non-empty string.");
-    }
-    if(!(100 <= height && height <= 250)) {
-        shouldAdd = false;
-    }
-    if(!(2000 <= yearOfJoining && yearOfJoining <= 2023)){
-        shouldAdd = false;
-    }
-    if(name.length() >= 20){
-        shouldAdd = false;
-    }
-    if(!std::isupper(name[0])){
-        shouldAdd = false;
-    }
-    if (!std::all_of(name.begin(), name.end(), ::isalnum)) {
-        shouldAdd = false;
-    }
-
-    if(shouldAdd) {
-        members.emplace_back(std::move(name), height, yearOfJoining);
+    if(isValidMember(name, height, yearOfJoining)) {
+//        members.emplace_back(std::move(name), height, yearOfJoining);
+        members->emplace_back(std::move(name), height, yearOfJoining);
     }
 }
 
 std::vector<std::string> AGHRacingTeam::getMembersSortedByHeightAsc()
 {
-    if(members.empty()){
+//    if(members.empty()){
+    if(members->empty()){
         throw std::runtime_error("No members in the team");
     }
     std::vector<std::pair<int, std::string>> temp; // aka #include <map>, & not coping elements
-    for (const auto &member : members) {
+//    for (const auto &member : members) {
+    for (const auto &member : *members) {
         temp.emplace_back(member.height, member.name);
     }
 
@@ -54,14 +37,24 @@ std::vector<std::string> AGHRacingTeam::getMembersSortedByHeightAsc()
 
     return sortedNames;
 }
+//std::vector<std::string> AGHRacingTeam::getMembersSortedByHeightAsc() {
+//    auto sortedMembers = *m_members;
+//    std::ranges::sort(sortedMembers, {}, &Member::height);
+//    return sortedMembers
+//           | std::ranges::views::transform(&Member::name)
+//           | std::ranges::to<std::vector<std::string>>();
+//}
+
 
 int AGHRacingTeam::getNumberOfMembersWhoJoinedInLeapYear()
 {
-    if(members.empty()){
+//    if(members.empty()){
+    if(members->empty()){
         throw std::runtime_error("No members in the team");
     }
     int leapJoinCounter = 0;
-    for (const auto &member : members) {
+//    for (const auto &member : members) {
+    for (const auto &member : *members) {
         if(member.yearOfJoining % 4 == 0){
             leapJoinCounter++;
         }
@@ -71,12 +64,14 @@ int AGHRacingTeam::getNumberOfMembersWhoJoinedInLeapYear()
 
 int AGHRacingTeam::getMaxNumberOfJoinedInTheSameYear()
 {
-    if(members.empty()){
+//    if(members.empty()){
+    if(members->empty()){
         throw std::runtime_error("No members in the team");
     }
 
     std::map<int, int> yearNOJoins;
-    for (const auto &member : members) {
+//    for (const auto &member : members) {
+    for (const auto &member : *members) {
         yearNOJoins[member.yearOfJoining]++;
     }
 
